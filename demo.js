@@ -170,7 +170,7 @@ function syncData(){
 		type: "GET",
         dataType: "json",
 		async:false,
-        success: function(e) {
+        success: function(result) {
 			loading = false;
 			if(result.status == 1){
 				var data = result.data;
