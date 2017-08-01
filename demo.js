@@ -106,7 +106,7 @@ $(function(){
 			var overtime = Date.now() - 10*60*1000;	//保存十分钟
 			var sdata = sessionStorageClient.getCacheData("DIV_list_pageSize_" + number + "_pageNo_"+ i,overtime);
 			if(sdata == null ){				//本地未保存数据,从服务端获取数据
-				syncData();
+				syncData(i);
 			}else{
 				html += itemhtml(sdata);
 			}
@@ -164,9 +164,9 @@ function asyncData(){
 	
 }
 
-function syncData(){
+function syncData(page){
 	$.ajax({
-		url:"data"+nextPage+".json",
+		url:"data"+page+".json",
 		type: "GET",
         dataType: "json",
 		async:false,
@@ -177,7 +177,7 @@ function syncData(){
 				var list = data.list;
 				var html = itemhtml(list);
 				$('.datalist').append(html);
-				sessionStorageClient.cacheData("DIV_list_pageSize_" + number + "_pageNo_"+ nextPage,list);		
+				sessionStorageClient.cacheData("DIV_list_pageSize_" + number + "_pageNo_"+ page,list);		
 			}
 		}
 	});	
